@@ -1,0 +1,22 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "1.1.12"
+    PKG_LICENSE: "GPL-3.0"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/MatrixEditor/construct-dataclasses/archive/refs/tags/v${PKG_VERSION}.tar.gz
+    digestSHA256: efcc93a82645ef5f20d10a5e78526cfbaa095040a9f872bc38c9bf8f1d449b6a
+    stripComponents: 1
+
+depends:
+    - python::construct
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps: ['*construct']
