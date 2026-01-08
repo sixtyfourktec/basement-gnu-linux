@@ -1,0 +1,45 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "4.32.0"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/tox-dev/tox/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: e467aadff05def57909859d3bb31b8fe000bc714d0e0ea6e7cac9c15185e32a9
+    stripComponents: 1
+
+depends:
+    - python::hatchling
+    - python::setuptools-scm
+    - python::hatch-vcs
+    - python::cachetools
+    - python::chardet
+    - python::colorama
+    - python::filelock
+    - python::packaging
+    - python::platformdirs
+    - python::pluggy
+    - python::pyproject-api
+    - python::virtualenv
+
+buildVars: [PKG_VERSION]
+buildSetup: |
+    export SETUPTOOLS_SCM_PRETEND_VERSION="${PKG_VERSION}"
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps:
+    - python::cachetools
+    - python::chardet
+    - python::colorama
+    - python::filelock
+    - python::packaging
+    - python::platformdirs
+    - python::pluggy
+    - python::pyproject-api
+    - python::virtualenv
