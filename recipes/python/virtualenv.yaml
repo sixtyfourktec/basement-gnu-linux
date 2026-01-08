@@ -1,0 +1,33 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "20.35.4"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/pypa/virtualenv/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: 7cd947aef689c99b2539a45de8735a209668e8cefec1482625461a1f2d25cc80
+    stripComponents: 1
+
+depends:
+    - python::hatchling
+    - python::setuptools-scm
+    - python::hatch-vcs
+    - python::distlib
+    - python::filelock
+    - python::platformdirs
+
+buildVars: [PKG_VERSION]
+buildSetup: |
+    export SETUPTOOLS_SCM_PRETEND_VERSION="${PKG_VERSION}"
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps:
+    - python::distlib
+    - python::filelock
+    - python::platformdirs
