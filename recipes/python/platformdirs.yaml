@@ -1,0 +1,25 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "4.5.1"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/tox-dev/platformdirs/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: 1c5e44517dd8c2b44e348598f0afebd32214178414843949e1d85204874805e4
+    stripComponents: 1
+
+depends:
+    - python::hatchling
+    - python::setuptools-scm
+    - python::hatch-vcs
+
+buildVars: [PKG_VERSION]
+buildSetup: |
+    export SETUPTOOLS_SCM_PRETEND_VERSION="${PKG_VERSION}"
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
