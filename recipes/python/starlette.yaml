@@ -1,0 +1,24 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "0.50.0"
+    PKG_LICENSE: "BSD-3-Clause"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/Kludex/starlette/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: c7491964ad0501fe516789e0e27a7bca72b3ab6bced01adcbb1e17ef49e851d5
+    stripComponents: 1
+
+depends:
+    - python::hatchling
+    - python::anyio
+    - python::typing_extensions
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps: ['*anyio', '*typing_extensions']
