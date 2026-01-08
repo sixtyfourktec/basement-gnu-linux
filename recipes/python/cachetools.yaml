@@ -1,0 +1,17 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "6.2.2"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/tkem/cachetools/archive/refs/tags/v${PKG_VERSION}.tar.gz
+    digestSHA256: 1a37b0b530fc03f9680089d21bc7908d513a151698ddb371b114a37615753c8f
+    stripComponents: 1
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
