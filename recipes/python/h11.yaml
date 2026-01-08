@@ -1,0 +1,20 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "0.16.0"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/python-hyper/h11/archive/refs/tags/v${PKG_VERSION}.tar.gz
+    digestSHA256: d164114d09552ea887b5c9ed206d5a8e5bc0bf07d33e07a32622f91f102182c2
+    stripComponents: 1
+
+depends:
+    - python::setuptools-scm
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
