@@ -1,0 +1,17 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "0.4.0"
+    PKG_LICENSE: "PSF-2.0"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/pypa/distlib/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: 98fb21cbb8c43d3deafc688ff58e024e79712568e837407d16b7037cd28d0041
+    stripComponents: 1
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
