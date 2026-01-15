@@ -1,13 +1,13 @@
 inherit: ["python3::build"]
 
 metaEnvironment:
-    PKG_VERSION: "8.1.0"
+    PKG_VERSION: "9.2.2"
     PKG_LICENSE: "MIT"
 
 checkoutSCM:
     scm: url
     url: ${GITHUB_MIRROR}/pypa/setuptools-scm/archive/refs/tags/v${PKG_VERSION}.tar.gz
-    digestSHA256: 4407d237183e668574bc893fdf739f8f4cde5f61950b99ead4f370f13224ea2b
+    digestSHA256: 853f06f1ab2cebd2bef6970c76fdf6bd6bad250c69b9d966d5a3e14f9d503df1
     stripComponents: 1
 
 buildScript: |
