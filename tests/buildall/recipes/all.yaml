@@ -113,31 +113,51 @@ depends:
     - perl::string-crc32-tgt
     - perl::xml-parser-tgt
 
+    - python::anyio
     - python::build
+    - python::cachetools
     - python::calver
+    - python::chardet
+    - python::click
     - python::colorama
+    - python::construct
+    - python::construct-dataclasses
     - python::cython
+    - python::distlib
     - python::docutils
+    - python::filelock
     - python::funcy
+    - python::h11
     - python::hatchling
+    - python::hatch-vcs
+    - python::idna
     - python::lxml
     - python::mako
     - python::markupsafe
     - python::packaging
     - python::pathspec
     - python::pbr
+    - python::pkg_about
+    - python::platformdirs
     - python::pluggy
     - python::psutil
-    - python::pycparser
     - python::pycotap
+    - python::pycparser
+    - python::pyc_wheel
+    - python::pyproject-api
     - python::pyproject-hooks
     - python::pyyaml
     - python::regex
     - python::setuptools-scm
     - python::smbus3
+    - python::starlette
     - python::stevedore
+    - python::tox
     - python::tqdm
     - python::trove-classifiers
+    - python::typing_extensions
+    - python::uvicorn
+    - python::virtualenv
 
     - utils::acpica
     - utils::brtools
