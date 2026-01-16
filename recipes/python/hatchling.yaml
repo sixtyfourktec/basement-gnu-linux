@@ -1,13 +1,13 @@
 inherit: ["python3::build"]
 
 metaEnvironment:
-    PKG_VERSION: "1.25.0"
+    PKG_VERSION: "1.28.0"
     PKG_LICENSE: "MIT"
 
 checkoutSCM:
     scm: url
     url: ${GITHUB_MIRROR}/pypa/hatch/archive/refs/tags/hatchling-v${PKG_VERSION}.tar.gz
-    digestSHA256: 0d8d66b687b8e765d19d2d0560f182457aa78cdbc45fef9430655ccaf1cd34b1
+    digestSHA256: 3a52e40675ab341eab0720fe22cbd82b6a0d18a6445e2ce6bb9aebb831ca79cd
     stripComponents: 1
 
 depends: &deps

@@ -1,0 +1,25 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "2.0.11"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/karpierz/pyc_wheel/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: 49be32f3db3d5dba4884d9c1944ee3d0142efec77e3adacb8ea8c2d07a4493e3
+    stripComponents: 1
+
+depends:
+    - python::tox
+    - python::python3-setuptools
+    - python::typing_extensions
+    - python::pkg_about
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps: [ '*setuptools', '*typing_extensions', '*pkg_about' ]

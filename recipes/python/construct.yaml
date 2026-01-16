@@ -1,0 +1,17 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "2.10.70"
+    PKG_LICENSE: "MIT"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/construct/construct/archive/refs/tags/v${PKG_VERSION}.tar.gz
+    digestSHA256: ea468f7970fe425e2190016875a1f5955d45753d4560e84c5921e8d575b237c2
+    stripComponents: 1
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt

@@ -1,0 +1,17 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "3.11"
+    PKG_LICENSE: "BSD-3-Clause"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/kjd/idna/archive/refs/tags/v${PKG_VERSION}.tar.gz
+    digestSHA256: 04c67db54fa23cd6d2276009f17ac8424471d6a7afa42e9b3e3805c93925eb0a
+    stripComponents: 1
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt

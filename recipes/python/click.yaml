@@ -1,0 +1,17 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "8.3.1"
+    PKG_LICENSE: "BSD-3-Clause"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/pallets/click/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: df2fb64b9c3f0b5fbf65f1b69dd164cd2d8e7d5d8f6ee3abdafcff7fe2d63719
+    stripComponents: 1
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt

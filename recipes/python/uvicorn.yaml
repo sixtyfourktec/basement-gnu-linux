@@ -1,0 +1,24 @@
+inherit: ["python3::build"]
+
+metaEnvironment:
+    PKG_VERSION: "0.38.0"
+    PKG_LICENSE: "BSD-3-Clause"
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/Kludex/uvicorn/archive/refs/tags/${PKG_VERSION}.tar.gz
+    digestSHA256: 788c7f1c42ddc698e8735e1c0af8be0a6bc07da5ab51f1d2a05d3c47d5f2cadb
+    stripComponents: 1
+
+depends:
+    - python::hatchling
+    - python::click
+    - python::h11
+
+buildScript: |
+    python3Build $1
+
+packageScript: |
+    python3PackageTgt
+
+provideDeps: ['*click', '*h11']
