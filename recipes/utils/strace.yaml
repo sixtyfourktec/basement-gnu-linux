@@ -1,13 +1,13 @@
 inherit: [autotools]
 
 metaEnvironment:
-    PKG_VERSION: "6.10"
+    PKG_VERSION: "6.18"
     PKG_LICENSE: "LGPL-2.1-or-later"
 
 checkoutSCM:
     scm: url
     url: https://strace.io/files/${PKG_VERSION}/strace-${PKG_VERSION}.tar.xz
-    digestSHA256: 765ec71aa1de2fe37363c1e40c7b7669fc1d40c44bb5d38ba8e8cd82c4edcf07
+    digestSHA256: 0ad5dcba973a69e779650ef1cb335b12ee60716fc7326609895bd33e6d2a7325
     stripComponents: 1
 
 buildTools: [host-toolchain]
