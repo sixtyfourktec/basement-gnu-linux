@@ -62,7 +62,7 @@ buildScript: |
     popd #build
 
     if [[ -f build/busybox_unstripped ]] ; then
-        mkdir install/bin/.debug
+        mkdir -p install/bin/.debug
         cp build/busybox_unstripped install/bin/.debug/busybox
         ${CROSS_COMPILE}objcopy --add-gnu-debuglink=install/bin/.debug/busybox install/bin/busybox
     fi
