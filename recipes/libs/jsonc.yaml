@@ -1,4 +1,4 @@
-inherit: [cmake]
+inherit: ['cmake-3']
 
 metaEnvironment:
     PKG_DESCRIPTION: "A JSON implementation in C"

@@ -16,7 +16,7 @@ depends:
       depends:
           - use: [tools]
             depends:
-                - libs::openssl
+                - libs::openssl-tool
                 - utils::sbsigntools
                 - name: utils::xxd
 
