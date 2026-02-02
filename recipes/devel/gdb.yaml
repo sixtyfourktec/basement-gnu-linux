@@ -24,7 +24,7 @@ checkoutSCM:
 checkoutScript: |
     patchApplySeries $<@gdb/*@>
 
-buildTools: [host-toolchain, texinfo, perl]
+buildTools: [host-toolchain, perl]
 
 buildScript: |
     autotoolsBuild $1 --with-system-readline
