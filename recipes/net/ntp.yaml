@@ -1,4 +1,4 @@
-inherit: [autotools]
+inherit: [autoconf, autotools, patch]
 
 metaEnvironment:
     PKG_VERSION: "4.2.8p18"
@@ -19,8 +19,18 @@ checkoutSCM:
     digestSHA1: 9b5247a8576c6082900682c6de98c8d3c17fc15f
     stripComponents: 1
 
+checkoutDeterministic: True
+checkoutScript: |
+    patchApplySeries $<@ntp/*.patch@>
+
 buildScript: |
-    autotoolsBuild $1 \
+    SRC=$(pwd)/src
+    autoconfSync $1 $SRC
+    pushd $SRC
+    autoconfReconfigure -u
+    popd
+
+    autotoolsBuild $SRC \
         --with-shared \
         --program-transform-name=s,,, \
         --disable-tickadj \
