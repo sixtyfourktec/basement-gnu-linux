@@ -1,13 +1,13 @@
 inherit: [autotools]
 
 metaEnvironment:
-    PKG_VERSION: "4.8.1"
+    PKG_VERSION: "4.11.0"
     PKG_LICENSE: "LGPL-2.1+ (syslog-ng core), GPL-2.0+ (modules)"
 
 checkoutSCM:
     scm: url
     url: ${GITHUB_MIRROR}/syslog-ng/syslog-ng/releases/download/syslog-ng-${PKG_VERSION}/syslog-ng-${PKG_VERSION}.tar.gz
-    digestSHA1: ee8d59da990f93e9ef921b160c8fd36366ecb7b5
+    digestSHA256: 37ea0d4588533316de122df4e1b249867b0a0575f646c7478d0cc4d747462943
     stripComponents: 1
 
 depends:
