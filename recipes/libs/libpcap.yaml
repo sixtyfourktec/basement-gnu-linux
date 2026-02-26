@@ -1,13 +1,13 @@
 inherit: [autotools]
 
 metaEnvironment:
-    PKG_VERSION: "1.9.1"
+    PKG_VERSION: "1.10.6"
     PKG_LICENSE: "BSD-3-Clause"
 
 checkoutSCM:
     scm: url
-    url: https://www.tcpdump.org/release/libpcap-${PKG_VERSION}.tar.gz
-    digestSHA1: 04d6e619defad5bb17af15f6d2304e79b649786c
+    url: https://www.tcpdump.org/release/libpcap-${PKG_VERSION}.tar.xz
+    digestSHA256: ec97d1206bdd19cb6bdd043eaa9f0037aa732262ec68e070fd7c7b5f834d5dfc
     stripComponents: 1
 
 buildTools: [flex, bison, m4]
