@@ -1,7 +1,7 @@
 inherit: [autotools]
 
 metaEnvironment:
-    PKG_VERSION: "4.9.3"
+    PKG_VERSION: "4.99.6"
     PKG_LICENSE: "BSD-3-CLAUSE"
 
 depends:
@@ -12,8 +12,8 @@ depends:
 
 checkoutSCM:
     scm: url
-    url: https://www.tcpdump.org/release/tcpdump-${PKG_VERSION}.tar.gz
-    digestSHA1: 59b309f3620ac4b709de2eaf7bf3a83bf04bc048
+    url: https://www.tcpdump.org/release/tcpdump-${PKG_VERSION}.tar.xz
+    digestSHA256: 40a8cefd45f0d2a06827e6658efb830d484868c449ad80f7efb33516af44f3da
     stripComponents: 1
 
 buildScript: |
