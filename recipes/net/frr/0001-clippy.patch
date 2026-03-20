@@ -1,0 +1,11 @@
+--- a/lib/subdir.am	2026-03-13 15:50:22.000000000 +0100
++++ b/lib/subdir.am	2026-03-20 10:20:02.623854099 +0100
+@@ -454,7 +454,7 @@
+ 
+ lib_clippy_CPPFLAGS = $(CPPFLAGS_BASE) -D_GNU_SOURCE -DBUILDING_CLIPPY
+ lib_clippy_CFLAGS = $(AC_CFLAGS) $(PYTHON_CFLAGS)
+-lib_clippy_LDADD = $(PYTHON_LIBS) $(UST_LIBS) -lelf
++lib_clippy_LDADD = $(PYTHON_LIBS) $(UST_LIBS) -lelf -lz -lm
+ # no $(SAN_FLAGS) here
+ lib_clippy_LDFLAGS = -export-dynamic $(AC_LDFLAGS) $(AC_LDFLAGS_EXEC)
+ lib_clippy_SOURCES = \

@@ -1,0 +1,114 @@
+inherit: [autotools, autoconf, patch, init, "python3::cext"]
+
+metaEnvironment:
+    PKG_VERSION: "10.5.3"
+    PKG_LICENSE: "GPL-2.0+"
+
+depends:
+    - libs::elfutils-libelf-dev
+    - use: []
+      name: libs::elfutils-libelf-tgt
+
+checkoutSCM:
+    scm: url
+    url: ${GITHUB_MIRROR}/FRRouting/frr/archive/refs/tags/frr-${PKG_VERSION}.tar.gz
+    digestSHA256: ecc95009b88e66df2c91be02fbf0a3eb8e1de434fd652e0cbf46f19126f708ec
+    stripComponents: 1
+
+checkoutDeterministic: True
+checkoutTools: [autotools]
+checkoutToolsWeak: [m4]
+checkoutScript: |
+    # add patch to be able to build the clippy lib static
+    patchApplySeries $<@frr/*.patch@>
+    # now run autoconf, because this does not exist upstream
+    ./bootstrap.sh
+
+multiPackage:
+    "":
+        depends:
+            - tools:
+                  target-toolchain: host-compat-toolchain
+              depends:
+                  - use: [tools]
+                    depends:
+                        - net::frr-clippy
+
+            - libs::jsonc-dev
+            - libs::libyang-dev
+            - libs::libcap-dev
+            - use: []
+              depends:
+                  - libs::jsonc-tgt
+                  - libs::libyang-tgt
+                  - libs::libcap-tgt
+
+        buildTools: [clippy, python3, flex, bison]
+        buildScript: |
+            autotoolsBuild $1 \
+                --sysconfdir=/etc \
+                --localstatedir=/var \
+                --enable-configfile-mask=0640 \
+                --enable-logfile-mask=0640 \
+                --enable-user=frr \
+                --enable-group=frr \
+                --enable-vty-group=frrvty \
+                --disable-doc \
+                --disable-protobuf \
+                --with-clippy=${BOB_TOOL_PATHS[clippy]}/clippy
+
+            # add some default config
+            for f in daemons daemons.conf frr.conf vtysh.conf support_bundle_commands.conf; do
+                install -D -m 0640 $1/tools/etc/frr/$f install/etc/frr/$f
+            done
+
+            mkdir -p install/var/tmp/frr
+
+            # add init script
+            if initIsAnySysvinit; then
+                install -D -m 0755 $<@frr/S50frr@> install/etc/init.d/S50frr
+            fi
+
+            mkdir -p install/.bob
+
+            # add frr daemon user
+            cat >install/.bob/frr.user-table <<EOF
+            frr -1 frr -1 * /var/run/frr - frrvty frr user
+            EOF
+
+            # add frr permission file
+            cat >install/.bob/frr.device-table <<EOF
+            /etc/frr/daemons f 640 frr frr - - - - -
+            /etc/frr/daemons.conf f 640 frr frr - - - - -
+            /etc/frr/frr.conf f 640 frr frr - - - - -
+            /etc/frr/vtysh.conf f 640 frr frrvty - - - - -
+            /etc/frr/support_bundle_commands.conf f 640 frr frr
+            EOF
+
+        packageScript: autotoolsPackageTgt
+        provideDeps: [ "*-tgt" ]
+
+    clippy:
+        buildTools: [python3, flex, bison]
+        buildScript: |
+            # Build clippy only:
+            # - don't really build it static; that doesn't work
+            # - set host==build, otherwise it will try to cross compile
+            # - call make clippy-only
+            # - don't call make install; this will try to build *everything*
+            # - add -lm to ldflags, otherwise the python configure compile
+            #   check fails on static builds
+            export AUTOTOOLS_AUTO_STATIC=no
+            export LDFLAGS="$LDFLAGS -lm"
+            autotoolsBuild -m clippy-only -i "" $1 \
+                --build=$AUTOCONF_HOST \
+                --enable-shared \
+                --enable-static \
+                --enable-clippy-only
+
+            # manually install clippy
+            install -D -m 0755 build/lib/clippy install/usr/bin/clippy
+
+        packageScript: autotoolsPackageTgt
+        provideTools:
+            clippy: usr/bin
